@@ -10,6 +10,8 @@ import Table from 'app/atoms/table';
 import TableRow from 'app/atoms/table-row';
 import TableHead from 'app/atoms/table-head';
 import TableData from 'app/atoms/table-data';
+import applySorting from 'app/helpers/formatting/apply-sorting';
+import useTableSorting from 'app/helpers/custom-hooks/use-table-sorting';
 
 interface StateProps {
     servers: ServersModel,
@@ -29,24 +31,47 @@ const ServerListPage = ({ actions, servers }: Props) => {
 
         return actions.servers.resetServersList;
     }, []);
+    const [currentSortProp, handleSortClick, sortOrder] = useTableSorting();
+
     if (!servers) { return null; }
 
+    const sortedServers = applySorting({
+        propName: currentSortProp,
+        order: sortOrder,
+        list: servers,
+    }) as ServersModel;
+
     return (
-        <div>
+        <React.Fragment>
             <Header />
             <Table>
                 <TableRow>
-                    <TableHead>Server</TableHead>
-                    <TableHead align="right">Distance</TableHead>
+                    <TableHead
+                        sortProp="name"
+                        onSort={handleSortClick}
+                        currentSortProp={currentSortProp}
+                        currentSortOrder={sortOrder}
+                    >
+                        Server
+                    </TableHead>
+                    <TableHead
+                        align="right"
+                        sortProp="distance"
+                        onSort={handleSortClick}
+                        currentSortProp={currentSortProp}
+                        currentSortOrder={sortOrder}
+                    >
+                        Distance
+                    </TableHead>
                 </TableRow>
-                {servers.map(server => (
+                {sortedServers.map(server => (
                     <TableRow key={`${server.name} ${server.distance}`}>
                         <TableData>{server.name}</TableData>
                         <TableData align="right">{server.distance}</TableData>
                     </TableRow>
                 ))}
             </Table>
-        </div>
+        </React.Fragment>
     );
 };
 

@@ -11,7 +11,7 @@ const styles = (theme: Theme) => ({
         '&:not(:last-of-type)': {
             marginBottom: 20,
         },
-        position: 'relative',
+        'position': 'relative',
     },
     input: {
         'display': 'block',
@@ -34,27 +34,28 @@ const styles = (theme: Theme) => ({
         },
     },
     inputWithPrefix: {
-        'paddingLeft': 54,
+        paddingLeft: 54,
     },
     prefix: {
-        position: 'absolute',
-        height: '100%',
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'center',
-        width: 54,
+        'position': 'absolute',
+        'height': '100%',
+        'alignItems': 'center',
+        'display': 'flex',
+        'justifyContent': 'center',
+        'width': 54,
         '& svg': {
             '& path': {
                 fill: theme.palette.grey[200],
-            }
+            },
         },
-    }
+    },
 });
 
 interface Styles {
     root: string;
     input: string;
     inputWithPrefix: string;
+    prefix: string;
 }
 
 interface OwnProps {
@@ -75,30 +76,39 @@ const TextInputField = ({
     name,
     disabled,
     prefix: Prefix,
-}: Props) => (
-    <Field name={name}>
-        {({ field }: any) => (
-            <div className={classes.root}>
-                {Prefix &&
-                    <div className={classes.prefix}>
-                        <Prefix />
-                    </div>}
-                <input
-                    className={classNames(classes.input, { [classes.inputWithPrefix]: !!Prefix })}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    type={type}
-                    value={field.value}
-                    name={field.name}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                />
-                <ErrorMessage name={field.name}>
-                    {msg => <ErrorMessageStyled>{msg}</ErrorMessageStyled>}
-                </ErrorMessage>
-            </div>
-        )}
-    </Field>
-);
+}: Props) => {
+    const inputClassNames = classNames(
+        classes.input,
+        { [classes.inputWithPrefix]: !!Prefix },
+    );
+
+    return (
+        <Field name={name}>
+            {({ field }: any) => (
+                <div className={classes.root}>
+                    {
+                        Prefix &&
+                        <div className={classes.prefix}>
+                            <Prefix />
+                        </div>
+                    }
+                    <input
+                        className={inputClassNames}
+                        placeholder={placeholder}
+                        disabled={disabled}
+                        type={type}
+                        value={field.value}
+                        name={field.name}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                    />
+                    <ErrorMessage name={field.name}>
+                        {msg => <ErrorMessageStyled>{msg}</ErrorMessageStyled>}
+                    </ErrorMessage>
+                </div>
+            )}
+        </Field>
+    );
+};
 
 export default injectSheet(styles)(TextInputField);

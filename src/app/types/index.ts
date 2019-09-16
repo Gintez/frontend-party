@@ -61,3 +61,8 @@ export interface ServerModel {
 }
 
 export type ServersModel = Array<ServerModel>;
+
+export enum SortOrderValues {
+    ascend = 'ascend',
+    descend = 'descend',
+}
