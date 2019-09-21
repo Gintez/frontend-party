@@ -10,14 +10,14 @@ import { Theme } from 'app/types';
 import BackgroundImage from 'app/static/images/surfing.png';
 import LogoImage from 'app/static/images/logo-light.png';
 import * as authActions from 'app/redux/auth/actions';
-import LoginForm from './login-form';
+import LoginForm, { LoginFormValidationSchema } from './login-form';
 
 const styles = (theme: Theme) => ({
     root: {
         color: theme.palette.primary.main,
         backgroundImage: [
             `url(${BackgroundImage})`,
-            'linear-gradient(0deg,rgba(11, 15, 39),rgba(11, 15, 39))',
+            'linear-gradient(#0B0F27, #0B0F27)',
         ],
         height: '100vh',
         backgroundSize: 'cover',
@@ -58,11 +58,6 @@ interface DispatchProps {
 }
 
 type Props = OwnProps & DispatchProps;
-
-const LoginFormValidationSchema = Yup.object().shape({
-    username: Yup.string().required('This field is required').min(2, 'Must be at least 2 simbols'),
-    password: Yup.string().required('This field is required').min(2, 'Must be at least 2 simbols'),
-});
 
 const LoginPage = ({ classes, actions }: Props) => {
     function renderForm(props: FormikProps<any>) {

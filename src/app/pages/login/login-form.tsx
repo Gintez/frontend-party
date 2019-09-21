@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Form, FormikProps } from 'formik';
 import injectSheet from 'react-jss';
+import * as Yup from 'yup';
 
 import TextInputField from 'app/atoms/text-input-field';
 import Button from 'app/atoms/button';
 import LoackIcon from 'app/static/icons/lock-icon.svg';
 import UserIcon from 'app/static/icons/user-icon.svg';
 
-const styles = {
+export const styles = {
     root: {
         width: '100%',
     },
@@ -28,8 +29,13 @@ interface OwnProps {
 
 type Props = OwnProps & FormikProps<any>;
 
+export const LoginFormValidationSchema = Yup.object().shape({
+    username: Yup.string().required('This field is required').min(2, 'Must be at least 2 symbols'),
+    password: Yup.string().required('This field is required').min(2, 'Must be at least 2 symbols'),
+});
+
 const LoginForm = ({ classes }: Props) => (
-    <Form className={classes.root}>
+    <Form className={classes.root} data-qa="login-form">
         <TextInputField
             name="username"
             placeholder="Username"
