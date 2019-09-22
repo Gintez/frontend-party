@@ -1,7 +1,7 @@
 import { take, call, all, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
-import api from 'app/api';
+import * as api from 'app/api/api';
 import paths from 'app/routes/paths';
 import { updateAuthToken, clearAuthToken } from 'app/helpers/storage';
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './constants';

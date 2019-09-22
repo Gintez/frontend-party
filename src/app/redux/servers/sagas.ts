@@ -1,6 +1,6 @@
 import { take, call, all, put } from 'redux-saga/effects';
 
-import api from 'app/api';
+import * as api from 'app/api/api';
 import { REQUEST_SERVERS, SET_SERVERS } from './constants';
 
 export function* fetchServersFlow() {

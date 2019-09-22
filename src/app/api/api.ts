@@ -1,7 +1,5 @@
 import { LoginFormData } from 'app/types';
 import restService from './rest-service';
 
-export default {
-    login: (data: LoginFormData) => restService.post('/tokens', data),
-    getServers: () => restService.get('/servers'),
-};
+export const login = (data: LoginFormData) => restService.post('/tokens', data);
+export const getServers = () => restService.get('/servers');
