@@ -64,10 +64,9 @@ const LoginPage = ({ classes, actions }: Props) => {
         return <LoginForm {...props} />;
     }
 
-    // TODO: remove inital values
     const initialValues = {
-        username: 'tesonet',
-        password: 'partyanimal',
+        username: '',
+        password: '',
     };
 
     return (

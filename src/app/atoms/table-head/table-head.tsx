@@ -77,7 +77,7 @@ const TableHead = ({
             onClick={handleClick}
         >
             {children}
-            {renderSortArror()}
+            {sortProp && renderSortArror()}
         </th>
     );
 };
